@@ -1,9 +1,7 @@
 import torch
 import math
-import numpy as np
 import torch.utils.model_zoo as model_zoo
 import torch.nn as nn
-from torch.autograd import Variable
 
 model_url = "https://download.pytorch.org/models/resnet18-5c106cde.pth" # Resnet-18
 
@@ -95,7 +93,7 @@ class ResNet(nn.Module):
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
-                m = m.kernel_size[0]*m.kernel_size[1]*m.out_channels
+                n = m.kernel_size[0]*m.kernel_size[1]*m.out_channels
                 m.weight.data.normal_(0, math.sqrt(2./n))
             elif isinstance(m, nn.BatchNorm2d):
                 m.weight.data.fill_(1)
